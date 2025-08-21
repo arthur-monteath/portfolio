@@ -5,12 +5,12 @@ import { ref, computed, defineComponent, h } from 'vue';
 type ContentType = "Academic" | "Professional" | "Artistic" | "";
 const selected = ref<ContentType>("");
 
-const basePanelClass = 'flex items-center justify-center h-full transition-all duration-300';
+const basePanelClass = 'flex items-center justify-center h-full basis-0 min-w-0 overflow-hidden transition-[flex-grow] duration-300 select-none';
 
-const widthClass = (name : ContentType) =>
+const growClass = (name : ContentType) =>
   selected.value === ''
-    ? 'w-full hover:w-[150%]'
-    : (selected.value === name ? 'w-full' : 'w-0')
+    ? 'grow hover:grow-[1.5]'
+    : (selected.value === name ? 'grow' : 'grow-0')
 
 const   ContentWrapper = defineComponent({
   name: 'ContentWrapper',
@@ -37,12 +37,12 @@ const   ContentWrapper = defineComponent({
 </script>
 
 <template>
-  <div class="absolute bg-black top-0 left-0 w-full h-full flex flex-row items-center justify-center cursor-pointer">
+  <div class="absolute bg-black inset-0 w-full h-full flex flex-row items-stretch justify-center cursor-pointer">
     <div
       :class="[
         basePanelClass,
         'bg-red-500',
-        widthClass('Academic')
+        growClass('Academic')
       ]"
       @click="selected === 'Academic' ? selected = '' : selected = 'Academic'"
       role="button"
@@ -56,7 +56,7 @@ const   ContentWrapper = defineComponent({
       :class="[
         basePanelClass,
         'bg-green-500',
-        widthClass('Professional')
+        growClass('Professional')
       ]"
       @click="selected === 'Professional' ? selected = '' : selected = 'Professional'"
       role="button"
@@ -70,7 +70,7 @@ const   ContentWrapper = defineComponent({
       :class="[
         basePanelClass,
         'bg-blue-500',
-        widthClass('Artistic')
+        growClass('Artistic')
       ]"
       @click="selected === 'Artistic' ? selected = '' : selected = 'Artistic'"
       role="button"
@@ -82,8 +82,8 @@ const   ContentWrapper = defineComponent({
     </div>
 
     <span class="absolute bottom-2 flex flex-col items-center">
-      <p class="text-lg font-semibold mb-2">Scroll for Overview</p>
-      <ChevronsDown class="w-12 h-12 animate-bounce " />
+      <!-- <ChevronsDown class="w-16 h-16 animate-bounce " /> -->
+      <p class="text-lg font-semibold">Scroll for Overview</p>
     </span>
   </div>
 
