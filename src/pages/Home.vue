@@ -33,9 +33,9 @@ const   ContentWrapper = defineComponent({
 })
 
 const categoryBg: Record<Category, string> = {
-  Academic: 'bg-red-600',
-  Professional: 'bg-green-600',
-  Artistic: 'bg-blue-600'
+  Academic: 'bg-red-600 + ',
+  Professional: 'bg-green-600 + ',
+  Artistic: 'bg-blue-600 + '
 }
 </script>
 
@@ -45,11 +45,12 @@ const categoryBg: Record<Category, string> = {
     <div class="z-10 h-screen flex items-stretch">
       <div v-for="category in ['Academic', 'Professional', 'Artistic']" :key="category"
       :class="[
-        ' flex items-center justify-center h-full basis-0 min-w-0 overflow-hidden transition-[flex-grow] duration-300 select-none cursor-pointer',
+        'relative flex items-center justify-center h-full basis-0 min-w-0 overflow-hidden transition-[flex-grow] duration-500 select-none cursor-pointer',
         growClass(category as Category), categoryBg[category as Category]
       ]"
       @click="selected === category ? selected = '' : selected = (category as Category)"
       >
+      <div class="absolute inset-0 bg-radial w-[100vh] from-white/15 opacity-0 hover:opacity-100 duration-500 transition-all from-40% to-transparent"/>
         <ContentWrapper :selected="selected === '' || selected === category">
           <h1>{{category}}</h1>
         </ContentWrapper>
@@ -61,6 +62,4 @@ const categoryBg: Record<Category, string> = {
       <p class="text-lg font-semibold">Scroll for Overview</p>
     </span> -->
   </main>
-
-  <footer class="bg-white"><p class="text-slate-900">©2025 Arthur Trindade</p></footer>
 </template>
