@@ -1,12 +1,91 @@
 <script setup lang="ts">
-import AboutCard from '../components/AboutCard.vue';
+import { ChevronsDown } from 'lucide-vue-next';
+import { ref, computed, defineComponent, h } from 'vue';
+
+type ContentType = "Academic" | "Professional" | "Artistic" | "";
+const selected = ref<ContentType>("");
+
+const basePanelClass = 'flex items-center justify-center h-full transition-all duration-300';
+
+const widthClass = (name : ContentType) =>
+  selected.value === ''
+    ? 'w-full hover:w-[150%]'
+    : (selected.value === name ? 'w-full' : 'w-0')
+
+const   ContentWrapper = defineComponent({
+  name: 'ContentWrapper',
+  props: {
+    selected: { type: Boolean, required: true },
+  },
+  setup(props, { slots }) {
+
+    const opacityClass = computed(() => (props.selected ? 'opacity-100' : 'opacity-0'))
+    return () =>
+      h(
+        'div',
+        {
+          class: [
+            'transition-opacity pointer-events-none select-none duration-300',
+            opacityClass.value,
+          ], 'aria-hidden': !props.selected,
+        },
+        slots.default ? slots.default() : []
+      )
+  },
+})
 
 </script>
 
 <template>
-  <div class="">
-    <h1 class="text-3xl font-bold text-blue-500">Home Page</h1>
-    <router-link to="/about" class="text-blue-700 underline">Go to About</router-link>
-    <AboutCard />
+  <div class="absolute bg-black top-0 left-0 w-full h-full flex flex-row items-center justify-center cursor-pointer">
+    <div
+      :class="[
+        basePanelClass,
+        'bg-red-500',
+        widthClass('Academic')
+      ]"
+      @click="selected === 'Academic' ? selected = '' : selected = 'Academic'"
+      role="button"
+      tabindex="0"
+    >
+      <ContentWrapper :selected="selected === '' || selected === 'Academic'">
+        <h1>Academic</h1>
+      </ContentWrapper>
+    </div>
+    <div
+      :class="[
+        basePanelClass,
+        'bg-green-500',
+        widthClass('Professional')
+      ]"
+      @click="selected === 'Professional' ? selected = '' : selected = 'Professional'"
+      role="button"
+      tabindex="1"
+    >
+      <ContentWrapper :selected="selected === '' || selected === 'Professional'">
+        <h1>Professional</h1>
+      </ContentWrapper>
+    </div>
+    <div
+      :class="[
+        basePanelClass,
+        'bg-blue-500',
+        widthClass('Artistic')
+      ]"
+      @click="selected === 'Artistic' ? selected = '' : selected = 'Artistic'"
+      role="button"
+      tabindex="2"
+    >
+      <ContentWrapper :selected="selected === '' || selected === 'Artistic'">
+        <h1>Artistic</h1>
+      </ContentWrapper>
+    </div>
+
+    <span class="absolute bottom-2 flex flex-col items-center">
+      <p class="text-lg font-semibold mb-2">Scroll for Overview</p>
+      <ChevronsDown class="w-12 h-12 animate-bounce " />
+    </span>
   </div>
+
+  <div class="flex w-full h-full bg-white z-10">ABC</div>
 </template>
