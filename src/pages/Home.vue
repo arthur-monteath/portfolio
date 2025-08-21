@@ -50,13 +50,14 @@ const categoryBg: Record<Category, string> = {
       ]"
       @click="selected === category ? selected = '' : selected = (category as Category)"
       >
-      <div class="absolute inset-0 bg-radial w-[100vh] from-white/15 opacity-0 hover:opacity-100 duration-500 transition-all from-40% to-transparent"/>
+      <div class="absolute inset-0 bg-radial w-full from-white/15 opacity-20 hover:opacity-100 duration-500 transition-all from-40% to-transparent"/>
         <ContentWrapper :selected="selected === '' || selected === category">
-          <h1>{{category}}</h1>
+          <h1 class="relative z-10 text-white font-bold text-4xl tracking-tight">{{category}}</h1>
         </ContentWrapper>
       </div>
     </div>
 
+    
     <!-- <span class="absolute bottom-2 flex flex-col items-center">
       <ChevronsDown class="w-16 h-16 animate-bounce " />
       <p class="text-lg font-semibold">Scroll for Overview</p>
