@@ -23,7 +23,7 @@ const   ContentWrapper = defineComponent({
         'div',
         {
           class: [
-            'transition-opacity pointer-events-none select-none duration-500',
+            'transition-opacity pointer-events-none select-none duration-500 h-full',
             opacityClass.value,
           ], 'aria-hidden': !props.selected,
         },
@@ -33,16 +33,16 @@ const   ContentWrapper = defineComponent({
 })
 
 const categoryBg: Record<Category, string> = {
-  Academic: 'bg-red-600 + ',
-  Professional: 'bg-green-600 + ',
-  Artistic: 'bg-blue-600 + '
+  Academic: 'bg-amber-500 + ',
+  Professional: 'bg-sky-500 + ',
+  Artistic: 'bg-rose-600 + '
 }
 </script>
 
 <template>
-  <main class="relative overflow-visible bg-black w-[100vw] flex flex-col items-stretch justify-center">
+  <main class="relative overflow-visible h-full bg-black w-[100vw] flex flex-col items-stretch justify-center">
     
-    <div class="z-10 h-screen flex items-stretch">
+    <div class="z-10 inset-0 relative h-full flex items-stretch">
       <div v-for="category in ['Academic', 'Professional', 'Artistic']" :key="category"
       :class="[
         'relative flex items-center justify-center h-full basis-0 min-w-0 overflow-hidden transition-[flex-grow] duration-500 select-none cursor-pointer',
@@ -50,14 +50,17 @@ const categoryBg: Record<Category, string> = {
       ]"
       @click="selected === category ? selected = '' : selected = (category as Category)"
       >
-      <div class="absolute inset-0 bg-radial w-full from-white/15 opacity-20 hover:opacity-100 duration-500 transition-all from-40% to-transparent"/>
-        <ContentWrapper :selected="selected === '' || selected === category">
-          <h1 class="relative z-10 text-white font-bold text-4xl tracking-tight">{{category}}</h1>
-        </ContentWrapper>
+      <div class="absolute inset-0 bg-radial w-full h-full from-white/15 opacity-20 hover:opacity-100 duration-500 transition-all from-40% to-transparent"/>
+      <ContentWrapper :selected="selected === '' || selected === category">
+        <h1 class="z-10 text-white font-bold text-4xl tracking-tight">{{category}}</h1>
+      </ContentWrapper>
       </div>
     </div>
 
-    
+    <div class="bg-white rounded-2xl shadow-4xl w-full max-w-5xl mx-auto p-6">
+      Card
+    </div>
+
     <!-- <span class="absolute bottom-2 flex flex-col items-center">
       <ChevronsDown class="w-16 h-16 animate-bounce " />
       <p class="text-lg font-semibold">Scroll for Overview</p>

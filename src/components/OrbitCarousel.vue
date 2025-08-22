@@ -64,7 +64,7 @@ const radius = 500
 const zAmplitude = 300
 const yAmplitude = 200
 const zTilt = 0.3 // Z tilt in radians
-const xTilt = 0.2 // Up/Down tilt in radians
+const xTilt = 0.15 // Up/Down tilt in radians
 const center = ref({ x: window.innerWidth / 2, y: window.innerHeight / 2 })
 const speed = 0.005
 
