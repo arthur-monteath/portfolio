@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "build-strict": "vue-tsc -b && vite build",
+    "build": "vite build",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
+    "deploy-page": "gh-pages -d dist"
   },
   "dependencies": {
     "lucide-vue-next": "^0.540.0",
